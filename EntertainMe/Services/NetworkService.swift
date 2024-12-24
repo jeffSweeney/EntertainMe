@@ -40,7 +40,24 @@ extension NetworkService {
 
 // MARK: Random Fact Partition
 extension NetworkService {
-    
+    func fetchRandomFact() async throws -> RandomFact {
+        guard let url = URL(string: "https://uselessfacts.jsph.pl/api/v2/facts/random") else {
+            throw URLError(.badURL)
+        }
+        
+        var request = URLRequest(url: url)
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        
+        guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+            throw URLError(.badServerResponse)
+        }
+        
+        let randomFact = try JSONDecoder().decode(RandomFact.self, from: data)
+        
+        return randomFact
+    }
 }
 
 // MARK: Trivia Partition
