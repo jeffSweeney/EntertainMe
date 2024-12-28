@@ -15,11 +15,8 @@ final class NetworkService {
 
 // MARK: Dad Joke Partition
 extension NetworkService {
-    func fetchDadJoke() async throws -> DadJoke {
-        var components = URLComponents(string: "https://icanhazdadjoke.com/")
-        components?.queryItems = [URLQueryItem(name: "amount", value: "1")]
-        
-        guard let url = components?.url else {
+    func fetchDadJoke() async throws -> DadJoke {        
+        guard let url = URL(string: "https://icanhazdadjoke.com/") else {
             throw URLError(.badURL)
         }
         
@@ -62,5 +59,25 @@ extension NetworkService {
 
 // MARK: Trivia Partition
 extension NetworkService {
-    
+    func fetchTrivia() async throws -> TriviaQuestion {
+        var components = URLComponents(string: "https://opentdb.com/api.php")
+        components?.queryItems = [URLQueryItem(name: "amount", value: "1")]
+        
+        guard let url = components?.url else {
+            throw URLError(.badURL)
+        }
+        
+        var request = URLRequest(url: url)
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        
+        guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+            throw URLError(.badServerResponse)
+        }
+        
+        let triviaQuestion = try TriviaQuestion.from(response: data)
+        
+        return triviaQuestion
+    }
 }
