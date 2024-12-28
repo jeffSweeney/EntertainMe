@@ -1,5 +1,5 @@
 //
-//  DadJokeViewModel.swift
+//  RandomFactViewModel.swift
 //  EntertainMe
 //
 //  Created by Jeffrey Sweeney on 12/28/24.
@@ -8,19 +8,19 @@
 import SwiftUI
 
 @Observable
-final class DadJokeViewModel {
-    var joke: DadJoke? = nil
+final class RandomFactViewModel {
+    var fact: RandomFact? = nil
     var isLoading: Bool = false
     var errorMessage: String? = nil
     
     @MainActor
-    func fetchJoke() async {
+    func fetchFact() async {
         isLoading = true
         
         do {
-            joke = try await NetworkService.shared.fetchDadJoke()
+            fact = try await NetworkService.shared.fetchRandomFact()
         } catch {
-            errorMessage = "Dad must be mowing the lawn. No jokes available at this time. Try again later."
+            errorMessage = "Fact: We encountered an error trying to fetch a fact ... awkward. Try again later."
         }
         
         isLoading = false
@@ -28,7 +28,7 @@ final class DadJokeViewModel {
     
     @MainActor
     func reset() {
-        joke = nil
+        fact = nil
         isLoading = false
         errorMessage = nil
     }
