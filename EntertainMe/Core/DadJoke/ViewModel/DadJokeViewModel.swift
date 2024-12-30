@@ -23,7 +23,7 @@ final class DadJokeViewModel: ObservableObject {
         isLoading = true
         
         do {
-            try await Task.sleep(nanoseconds: 2_000_000_000) // Simulate 2 second delay
+            try await Task.sleep(nanoseconds: 2_000_000_000) // Simulate 2 second delay to show off loading screen
             dadJoke = try await NetworkService.shared.fetchDadJoke()
             errorMessage = nil
         } catch {

@@ -23,7 +23,7 @@ final class RandomFactViewModel: ObservableObject {
         isLoading = true
         
         do {
-            try await Task.sleep(nanoseconds: 2_000_000_000) // Simulate 2 second delay
+            try await Task.sleep(nanoseconds: 2_000_000_000) // Simulate 2 second delay to show off loading screen
             fact = try await NetworkService.shared.fetchRandomFact()
             errorMessage = nil
         } catch {
@@ -31,12 +31,5 @@ final class RandomFactViewModel: ObservableObject {
         }
         
         isLoading = false
-    }
-    
-    @MainActor
-    func reset() {
-        fact = nil
-        isLoading = false
-        errorMessage = nil
     }
 }
