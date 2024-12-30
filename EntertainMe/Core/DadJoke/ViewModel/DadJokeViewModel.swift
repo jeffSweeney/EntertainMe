@@ -7,11 +7,10 @@
 
 import SwiftUI
 
-@Observable
-final class DadJokeViewModel {
-    var joke: DadJoke? = nil
-    var isLoading: Bool = false
-    var errorMessage: String? = nil
+final class DadJokeViewModel: ObservableObject {
+    @Published var joke: DadJoke? = nil
+    @Published var isLoading: Bool = false
+    @Published var errorMessage: String? = nil
     
     @MainActor
     func fetchJoke() async {

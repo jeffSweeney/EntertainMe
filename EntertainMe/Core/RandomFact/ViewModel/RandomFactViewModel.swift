@@ -7,11 +7,10 @@
 
 import SwiftUI
 
-@Observable
-final class RandomFactViewModel {
-    var fact: RandomFact? = nil
-    var isLoading: Bool = false
-    var errorMessage: String? = nil
+final class RandomFactViewModel: ObservableObject {
+    @Published var fact: RandomFact? = nil
+    @Published var isLoading: Bool = false
+    @Published var errorMessage: String? = nil
     
     @MainActor
     func fetchFact() async {
