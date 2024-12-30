@@ -11,15 +11,26 @@ struct DadJokeView: View {
     @ObservedObject var viewModel: DadJokeViewModel
     
     var body: some View {
-        // TODO: Implement
-        if viewModel.isLoading {
-            Text("Loading...")
-        } else if viewModel.errorMessage != nil {
-            Text("Error: \(viewModel.errorMessage!)")
-        } else if let joke = viewModel.dadJoke?.joke {
-            Text(joke)
-        } else {
-            Text("No joke found :(")
+        NavigationStack {
+            currentView()
+                .navigationTitle(Text("Dad Joke 😂"))
+                .navigationBarTitleDisplayMode(.inline)
+        }
+    }
+}
+
+extension DadJokeView {
+    private func currentView() -> some View {
+        Group {
+            if viewModel.isLoading {
+                EMProgressView(caption: "Dad is thinking ... 🤔🥸")
+            } else if let errorMessage = viewModel.errorMessage {
+                EMContentPresenterView(presenter: EMErrorPresenter(error: errorMessage))
+            } else if let joke = viewModel.dadJoke?.joke {
+                EMContentPresenterView(presenter: EMDadJokePresenter(joke: joke))
+            } else {
+                EMContentPresenterView(presenter: EMErrorPresenter(error: "No joke found 😭"))
+            }
         }
     }
 }

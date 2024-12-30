@@ -11,15 +11,20 @@ struct RandomFactView: View {
     @ObservedObject var viewModel: RandomFactViewModel
     
     var body: some View {
-        // TODO: Implement
-        if viewModel.isLoading {
-            Text("Loading...")
-        } else if viewModel.errorMessage != nil {
-            Text("Error: \(viewModel.errorMessage!)")
-        } else if let fact = viewModel.fact?.text {
-            Text(fact)
-        } else {
-            Text("No fact found :(")
+        NavigationStack {
+            Group {
+                if viewModel.isLoading {
+                    EMProgressView(caption: "Fact engines warming up ... 🔍✨")
+                } else if let errorMessage = viewModel.errorMessage {
+                    EMContentPresenterView(presenter: EMErrorPresenter(error: errorMessage))
+                } else if let fact = viewModel.fact?.text {
+                    EMContentPresenterView(presenter: EMRandomFactPresenter(fact: fact))
+                } else {
+                    EMContentPresenterView(presenter: EMErrorPresenter(error: "No fact found 😭"))
+                }
+            }
+            .navigationTitle("Random Fact 🤔")
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
