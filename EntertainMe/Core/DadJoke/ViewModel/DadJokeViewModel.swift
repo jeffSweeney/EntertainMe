@@ -23,18 +23,13 @@ final class DadJokeViewModel: ObservableObject {
         isLoading = true
         
         do {
+            try await Task.sleep(nanoseconds: 2_000_000_000) // Simulate 2 second delay
             dadJoke = try await NetworkService.shared.fetchDadJoke()
+            errorMessage = nil
         } catch {
             errorMessage = "Dad must be mowing the lawn. No jokes available at this time. Try again later."
         }
         
         isLoading = false
-    }
-    
-    @MainActor
-    func reset() {
-        dadJoke = nil
-        isLoading = false
-        errorMessage = nil
     }
 }
