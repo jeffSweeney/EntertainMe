@@ -23,7 +23,9 @@ final class RandomFactViewModel: ObservableObject {
         isLoading = true
         
         do {
+            try await Task.sleep(nanoseconds: 2_000_000_000) // Simulate 2 second delay
             fact = try await NetworkService.shared.fetchRandomFact()
+            errorMessage = nil
         } catch {
             errorMessage = "Fact: We encountered an error trying to fetch a fact ... awkward. Try again later."
         }
