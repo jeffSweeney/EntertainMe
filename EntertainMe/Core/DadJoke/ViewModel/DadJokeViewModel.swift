@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-final class DadJokeViewModel: ObservableObject {
+final class DadJokeViewModel: ObservableObject, @preconcurrency TabBaseViewProtocol {
     @Published var dadJoke: DadJoke?
     @Published var isLoading: Bool
     @Published var errorMessage: String?
@@ -18,8 +18,13 @@ final class DadJokeViewModel: ObservableObject {
         self.errorMessage = errorMessage
     }
     
+    let title = "Dad Jokes"
+    let systemImage = "theatermasks.fill"
+    let subtitle = "Warning: Side effects may include eye-rolling and unexpected chuckles."
+    let buttonText = "Get a Joke!"
+    
     @MainActor
-    func fetchJoke() async {
+    func fetchData() async {
         isLoading = true
         
         do {
@@ -31,5 +36,16 @@ final class DadJokeViewModel: ObservableObject {
         }
         
         isLoading = false
+    }
+    
+    @MainActor
+    func resetData() {
+        dadJoke = nil
+        isLoading = false
+        errorMessage = nil
+    }
+    
+    func launchSheet() -> DadJokeView {
+        return DadJokeView(viewModel: self)
     }
 }

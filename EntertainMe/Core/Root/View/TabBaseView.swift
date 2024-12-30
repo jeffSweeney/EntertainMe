@@ -2,104 +2,61 @@
 //  TabBaseView.swift
 //  EntertainMe
 //
-//  Created by Jeffrey Sweeney on 12/28/24.
+//  Created by Jeffrey Sweeney on 12/30/24.
 //
 
 import SwiftUI
 
-struct TabBaseView: View {
-    @State var isShowingSheet: Bool = false
-    @StateObject var dadJokeViewModel = DadJokeViewModel()
-    @StateObject var randomFactViewModel = RandomFactViewModel()
+protocol TabBaseViewProtocol {
+    // View components
+    var title: String { get }
+    var systemImage: String { get }
+    var subtitle: String { get }
+    var buttonText: String { get }
     
-    let context: Context
+    // Data components
+    func fetchData() async
+    func resetData()
+    
+    // View transitionst
+    associatedtype SheetView: View
+    func launchSheet() -> SheetView
+}
+
+struct TabBaseView<T: TabBaseViewProtocol>: View {
+    @State var isShowingSheet: Bool = false
+    
+    let viewModel: T
     
     var body: some View {
-        VStack(spacing: 24) {
-            Text(context.title)
+        VStack {
+            Text(viewModel.title)
                 .font(.system(size: 42, weight: .bold, design: .serif))
                 .foregroundStyle(.emPrimary)
             
-            Image(systemName: context.systemImage)
+            Image(systemName: viewModel.systemImage)
                 .resizable()
                 .scaledToFit()
                 .frame(width: 100, height: 100)
                 .foregroundStyle(.emPrimary)
             
-            Text(context.subtitle)
+            Text(viewModel.subtitle)
                 .font(.title3)
                 .fontWeight(.semibold)
                 .multilineTextAlignment(.center)
                 .foregroundStyle(.emSecondary)
                 .padding(36)
             
-            Button(context.buttonText) {
-                switch context {
-                case .dadJoke:
-                    Task { await dadJokeViewModel.fetchJoke() }
-                case .randomFact:
-                    Task { await randomFactViewModel.fetchFact() }
-                case .trivia:
-                    print("TODO: Implement Trivia Fetch")
-                }
-                
+            Button(viewModel.buttonText) {
+                Task { await viewModel.fetchData() }
                 isShowingSheet = true
             }
             .modifier(EMButtonViewModifier())
         }
-        .sheet(isPresented: $isShowingSheet) {
-            switch context {
-            case .dadJoke:
-                DadJokeView(viewModel: dadJokeViewModel)
-            case .randomFact:
-                RandomFactView(viewModel: randomFactViewModel)
-            case .trivia:
-                Text("TODO: Implement Trivia")
-            }
-        }
+        .sheet(isPresented: $isShowingSheet) { viewModel.launchSheet() }
     }
 }
 
-extension TabBaseView {
-    enum Context {
-        case dadJoke
-        case randomFact
-        case trivia
-        
-        var title: String {
-            switch self {
-            case .dadJoke: return "Dad Jokes"
-            case .randomFact: return "Random Facts"
-            case .trivia: return "Trivia"
-            }
-        }
-        
-        var systemImage: String {
-            switch self {
-            case .dadJoke: return "theatermasks.fill"
-            case .randomFact: return "lightbulb.fill"
-            case .trivia: return "brain.head.profile"
-            }
-        }
-        
-        var subtitle: String {
-            switch self {
-            case .dadJoke: return "Warning: Side effects may include eye-rolling and unexpected chuckles."
-            case .randomFact: return "Expand your knowledge with bite-sized fascinating facts."
-            case .trivia: return "Challenge yourself with questions that'll make you think twice."
-            }
-        }
-        
-        var buttonText: String {
-            switch self {
-            case .dadJoke: return "Get a Joke!"
-            case .randomFact: return "Get a Fact!"
-            case .trivia: return "Play Trivia!"
-            }
-        }
-    }
-}
-
-#Preview("Dad Jokes") { TabBaseView(context: .dadJoke) }
-#Preview("Random Facts") { TabBaseView(context: .randomFact) }
-#Preview("Trivia") { TabBaseView(context: .trivia) }
+#Preview("Dad Jokes") { TabBaseView(viewModel: DadJokeViewModel()) }
+#Preview("Random Facts") { TabBaseView(viewModel: RandomFactViewModel()) }
+#Preview("Trivia") { TabBaseView(viewModel: TriviaViewModel()) }

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-final class RandomFactViewModel: ObservableObject {
+final class RandomFactViewModel: ObservableObject, @preconcurrency TabBaseViewProtocol {
     @Published var fact: RandomFact?
     @Published var isLoading: Bool
     @Published var errorMessage: String?
@@ -18,8 +18,13 @@ final class RandomFactViewModel: ObservableObject {
         self.errorMessage = errorMessage
     }
     
+    let title = "Random Facts"
+    let systemImage: String = "lightbulb.fill"
+    let subtitle: String = "Expand your knowledge with bite-sized fascinating facts."
+    let buttonText: String = "Get a Fact!"
+    
     @MainActor
-    func fetchFact() async {
+    func fetchData() async {
         isLoading = true
         
         do {
@@ -31,5 +36,16 @@ final class RandomFactViewModel: ObservableObject {
         }
         
         isLoading = false
+    }
+    
+    @MainActor
+    func resetData() {
+        fact = nil
+        isLoading = false
+        errorMessage = nil
+    }
+    
+    func launchSheet() -> RandomFactView {
+        return RandomFactView(viewModel: self)
     }
 }

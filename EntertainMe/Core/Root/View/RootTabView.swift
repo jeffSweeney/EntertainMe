@@ -8,19 +8,22 @@
 import SwiftUI
 
 struct RootTabView: View {
+    @StateObject var dadJokeViewModel = DadJokeViewModel()
+    @StateObject var randomFactViewModel = RandomFactViewModel()
+    @StateObject var triviaViewModel = TriviaViewModel()
     
     var body: some View {
         TabView {
             Tab("Dad Joke", systemImage: "theatermasks.fill") {
-                TabBaseView(context: .dadJoke)
+                TabBaseView(viewModel: dadJokeViewModel)
             }
             
             Tab("Random Fact", systemImage: "lightbulb.fill") {
-                TabBaseView(context: .randomFact)
+                TabBaseView(viewModel: randomFactViewModel)
             }
             
             Tab("Trivia", systemImage: "brain.head.profile") {
-                TabBaseView(context: .trivia)
+                TabBaseView(viewModel: triviaViewModel)
             }
         }
         .tint(.emSecondary)
