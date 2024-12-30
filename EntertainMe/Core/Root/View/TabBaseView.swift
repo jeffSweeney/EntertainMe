@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct TabBaseView: View {
+    @State var isShowingSheet: Bool = false
+    @StateObject var dadJokeViewModel = DadJokeViewModel()
+    @StateObject var randomFactViewModel = RandomFactViewModel()
+    
     let context: Context
     
     var body: some View {
@@ -30,13 +34,32 @@ struct TabBaseView: View {
                 .padding(36)
             
             Button(context.buttonText) {
-                print("\(context.title) button tapped!")
+                switch context {
+                case .dadJoke:
+                    Task { await dadJokeViewModel.fetchJoke() }
+                case .randomFact:
+                    Task { await randomFactViewModel.fetchFact() }
+                case .trivia:
+                    print("TODO: Implement Trivia Fetch")
+                }
+                
+                isShowingSheet = true
             }
             .buttonStyle(.borderedProminent)
             .tint(.emPrimary)
             .foregroundStyle(.emButtonText)
             .fontWeight(.bold)
             .controlSize(.extraLarge)
+        }
+        .sheet(isPresented: $isShowingSheet) {
+            switch context {
+            case .dadJoke:
+                DadJokeView(viewModel: dadJokeViewModel)
+            case .randomFact:
+                RandomFactView(viewModel: randomFactViewModel)
+            case .trivia:
+                Text("TODO: Implement Trivia")
+            }
         }
     }
 }
