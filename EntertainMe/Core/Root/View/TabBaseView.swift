@@ -45,11 +45,7 @@ struct TabBaseView: View {
                 
                 isShowingSheet = true
             }
-            .buttonStyle(.borderedProminent)
-            .tint(.emPrimary)
-            .foregroundStyle(.emButtonText)
-            .fontWeight(.bold)
-            .controlSize(.extraLarge)
+            .modifier(EMButtonViewModifier())
         }
         .sheet(isPresented: $isShowingSheet) {
             switch context {
