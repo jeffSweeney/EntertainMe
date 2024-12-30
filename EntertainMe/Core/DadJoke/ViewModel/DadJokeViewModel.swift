@@ -8,16 +8,22 @@
 import SwiftUI
 
 final class DadJokeViewModel: ObservableObject {
-    @Published var joke: DadJoke? = nil
-    @Published var isLoading: Bool = false
-    @Published var errorMessage: String? = nil
+    @Published var dadJoke: DadJoke?
+    @Published var isLoading: Bool
+    @Published var errorMessage: String?
+    
+    init(dadJoke: DadJoke? = nil, isLoading: Bool = false, errorMessage: String? = nil) {
+        self.dadJoke = dadJoke
+        self.isLoading = isLoading
+        self.errorMessage = errorMessage
+    }
     
     @MainActor
     func fetchJoke() async {
         isLoading = true
         
         do {
-            joke = try await NetworkService.shared.fetchDadJoke()
+            dadJoke = try await NetworkService.shared.fetchDadJoke()
         } catch {
             errorMessage = "Dad must be mowing the lawn. No jokes available at this time. Try again later."
         }
@@ -27,7 +33,7 @@ final class DadJokeViewModel: ObservableObject {
     
     @MainActor
     func reset() {
-        joke = nil
+        dadJoke = nil
         isLoading = false
         errorMessage = nil
     }
