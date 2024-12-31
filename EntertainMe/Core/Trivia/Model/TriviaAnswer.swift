@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct TriviaAnswer {
+struct TriviaAnswer: Identifiable {
+    let id: String = UUID().uuidString
     let content: String
     let correctAnswer: Bool
 }

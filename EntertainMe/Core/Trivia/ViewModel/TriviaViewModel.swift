@@ -34,11 +34,11 @@ final class TriviaViewModel: ObservableObject, @preconcurrency TabBaseViewProtoc
             
             let trivia = try await NetworkService.shared.fetchTrivia()
             var answers = [TriviaAnswer(content: trivia.correctAnswer, correctAnswer: true)]
-            answers.append(contentsOf: trivia.incorrectAnswers.map {TriviaAnswer(content: $0,
+            answers.append(contentsOf: trivia.incorrectAnswers.map {TriviaAnswer(content: $0.decodedHTML(),
                                                                                  correctAnswer: false)})
             
             // TODO: Refactor this to be part of same object rather than 2 independent publishers.
-            triviaQuestion = trivia.question
+            triviaQuestion = trivia.question.decodedHTML()
             triviaAnswers = answers.shuffled()
             errorMessage = nil
         } catch {
@@ -50,6 +50,7 @@ final class TriviaViewModel: ObservableObject, @preconcurrency TabBaseViewProtoc
     
     @MainActor
     func resetData() {
+        triviaQuestion = nil
         triviaAnswers = nil
         isLoading = false
         errorMessage = nil

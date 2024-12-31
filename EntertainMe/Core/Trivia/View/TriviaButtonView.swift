@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TriviaButtonView: View {
-    @State private var borderColor: Color = .emSecondary
+    @State private var borderColor: Color = .emPrimary
     @State private var hasBeenTapped: Bool = false
     
     let content: String
@@ -26,7 +26,7 @@ struct TriviaButtonView: View {
                     .fill(Color.clear)
                 Text(content)
                     .padding(6)
-                    .foregroundStyle(.emPrimary)
+                    .foregroundStyle(.emSecondary)
                     .font(.headline)
                     .minimumScaleFactor(0.5)
             }
