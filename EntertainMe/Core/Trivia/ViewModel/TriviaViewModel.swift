@@ -8,12 +8,12 @@
 import SwiftUI
 
 final class TriviaViewModel: ObservableObject, @preconcurrency TabBaseViewProtocol {
-    @Published var triviaQuestion: TriviaQuestion?
+    @Published var triviaAnswers: [TriviaAnswer]?
     @Published var isLoading: Bool
     @Published var errorMessage: String?
     
-    init(triviaQuestion: TriviaQuestion? = nil, isLoading: Bool = false, errorMessage: String? = nil) {
-        self.triviaQuestion = triviaQuestion
+    init(triviaAnswers: [TriviaAnswer]? = nil, isLoading: Bool = false, errorMessage: String? = nil) {
+        self.triviaAnswers = triviaAnswers
         self.isLoading = isLoading
         self.errorMessage = errorMessage
     }
@@ -25,17 +25,33 @@ final class TriviaViewModel: ObservableObject, @preconcurrency TabBaseViewProtoc
     
     @MainActor
     func fetchData() async {
-        print("DEBUG: Fetching data ...")
+        isLoading = true
+        
+        do {
+            try await Task.sleep(nanoseconds: 2_000_000_000) // Simulate 2 second delay to show off loading screen
+            
+            let triviaQuestion = try await NetworkService.shared.fetchTrivia()
+            var answers = [TriviaAnswer(content: triviaQuestion.correctAnswer, correctAnswer: true)]
+            answers.append(contentsOf: triviaQuestion.incorrectAnswers.map {TriviaAnswer(content: $0,
+                                                                                         correctAnswer: false)})
+            
+            triviaAnswers = answers.shuffled()
+            errorMessage = nil
+        } catch {
+            errorMessage = "Trivia: Who tried to fetch trivia data and failed? This guy! Try again later."
+        }
+        
+        isLoading = false
     }
     
     @MainActor
     func resetData() {
-        triviaQuestion = nil
+        triviaAnswers = nil
         isLoading = false
         errorMessage = nil
     }
     
     func launchSheet() -> some View {
-        Text("TODO: Implement Trivia")
+        return TriviaView(viewModel: self)
     }
 }
