@@ -8,11 +8,13 @@
 import SwiftUI
 
 final class TriviaViewModel: ObservableObject, @preconcurrency TabBaseViewProtocol {
+    @Published var triviaQuestion: String?
     @Published var triviaAnswers: [TriviaAnswer]?
     @Published var isLoading: Bool
     @Published var errorMessage: String?
     
-    init(triviaAnswers: [TriviaAnswer]? = nil, isLoading: Bool = false, errorMessage: String? = nil) {
+    init(triviaQuestion: String? = nil, triviaAnswers: [TriviaAnswer]? = nil, isLoading: Bool = false, errorMessage: String? = nil) {
+        self.triviaQuestion = triviaQuestion
         self.triviaAnswers = triviaAnswers
         self.isLoading = isLoading
         self.errorMessage = errorMessage
@@ -30,11 +32,13 @@ final class TriviaViewModel: ObservableObject, @preconcurrency TabBaseViewProtoc
         do {
             try await Task.sleep(nanoseconds: 2_000_000_000) // Simulate 2 second delay to show off loading screen
             
-            let triviaQuestion = try await NetworkService.shared.fetchTrivia()
-            var answers = [TriviaAnswer(content: triviaQuestion.correctAnswer, correctAnswer: true)]
-            answers.append(contentsOf: triviaQuestion.incorrectAnswers.map {TriviaAnswer(content: $0,
-                                                                                         correctAnswer: false)})
+            let trivia = try await NetworkService.shared.fetchTrivia()
+            var answers = [TriviaAnswer(content: trivia.correctAnswer, correctAnswer: true)]
+            answers.append(contentsOf: trivia.incorrectAnswers.map {TriviaAnswer(content: $0,
+                                                                                 correctAnswer: false)})
             
+            // TODO: Refactor this to be part of same object rather than 2 independent publishers.
+            triviaQuestion = trivia.question
             triviaAnswers = answers.shuffled()
             errorMessage = nil
         } catch {
