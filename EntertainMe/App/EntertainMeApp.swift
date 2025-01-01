@@ -9,9 +9,15 @@ import SwiftUI
 
 @main
 struct EntertainMeApp: App {
+    @State private var showingSplash = true
+    
     var body: some Scene {
         WindowGroup {
-            RootTabView()
+            if showingSplash {
+                EMSplashView(showingSplash: $showingSplash)
+            } else {
+                RootTabView()
+            }
         }
     }
 }
