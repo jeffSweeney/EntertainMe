@@ -27,6 +27,7 @@ final class TriviaViewModel: ObservableObject, @preconcurrency TabBaseViewProtoc
     
     @MainActor
     func fetchData() async {
+        resetData()
         isLoading = true
         
         do {

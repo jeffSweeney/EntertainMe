@@ -25,6 +25,7 @@ final class DadJokeViewModel: ObservableObject, @preconcurrency TabBaseViewProto
     
     @MainActor
     func fetchData() async {
+        resetData()
         isLoading = true
         
         do {

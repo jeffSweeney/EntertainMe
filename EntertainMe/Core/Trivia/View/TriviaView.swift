@@ -49,12 +49,17 @@ struct TriviaView: View {
                     TriviaButtonView(content: answer.content, correctAnswer: answer.correctAnswer)
                 }
                 
-                Button("More Entertainment!") {
-                    viewModel.resetData()
-                    dismiss()
+                Button("Get More Trivia!") {
+                    Task { await viewModel.fetchData() }
                 }
                 .modifier(EMButtonViewModifier())
-                .padding(.vertical, 36)
+                .padding(.vertical, 28)
+                
+                Button("MORE ENTERTAINMENT") {
+                    Task { dismiss() }
+                }
+                .font(.system(size: 18, weight: .bold, design: .serif))
+                .foregroundStyle(.emPrimary)
             }
         }
     }

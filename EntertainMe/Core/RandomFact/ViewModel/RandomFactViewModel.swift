@@ -25,6 +25,7 @@ final class RandomFactViewModel: ObservableObject, @preconcurrency TabBaseViewPr
     
     @MainActor
     func fetchData() async {
+        resetData()
         isLoading = true
         
         do {

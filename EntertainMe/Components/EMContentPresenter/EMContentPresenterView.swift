@@ -26,11 +26,14 @@ struct EMContentPresenterView<T: EMContentPresenterProtocol>: View {
                 .padding(.horizontal, 24)
                 .multilineTextAlignment(.center)
             
-            Button("More Entertainment!") {
-                dismiss()
+            if let errorButtonText = presenter.errorButtonText {
+                Button(errorButtonText) {
+                    dismiss()
+                }
+                .font(.system(size: 18, weight: .bold, design: .serif))
+                .foregroundStyle(.emPrimary)
+                .padding()
             }
-            .modifier(EMButtonViewModifier())
-            .padding(.vertical, 36)
         }
     }
 }

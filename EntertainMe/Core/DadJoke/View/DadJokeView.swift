@@ -9,6 +9,7 @@ import SwiftUI
 
 struct DadJokeView: View {
     @ObservedObject var viewModel: DadJokeViewModel
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         NavigationStack {
@@ -22,15 +23,33 @@ struct DadJokeView: View {
 extension DadJokeView {
     private func currentView() -> some View {
         Group {
-            if viewModel.isLoading {
+            if let joke = viewModel.dadJoke?.joke, !viewModel.isLoading {
+                mainJokeView(joke: joke)
+            } else if viewModel.isLoading {
                 EMProgressView(caption: "Dad is thinking ... 🤔🥸")
             } else if let errorMessage = viewModel.errorMessage {
                 EMContentPresenterView(presenter: EMErrorPresenter(error: errorMessage))
-            } else if let joke = viewModel.dadJoke?.joke {
-                EMContentPresenterView(presenter: EMDadJokePresenter(joke: joke))
             } else {
                 EMContentPresenterView(presenter: EMErrorPresenter(error: "No joke found 😭"))
             }
+        }
+    }
+    
+    private func mainJokeView(joke: String) -> some View {
+        VStack {
+            EMContentPresenterView(presenter: EMDadJokePresenter(joke: joke))
+            
+            Button("Get Another Joke!") {
+                Task { await viewModel.fetchData() }
+            }
+            .modifier(EMButtonViewModifier())
+            .padding(.vertical, 36)
+            
+            Button("MORE ENTERTAINMENT") {
+                Task { dismiss() }
+            }
+            .font(.system(size: 18, weight: .bold, design: .serif))
+            .foregroundStyle(.emPrimary)
         }
     }
 }
