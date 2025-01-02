@@ -45,6 +45,11 @@
 			path = EntertainMeUITests;
 			sourceTree = "<group>";
 		};
+		E0F3EF302D26CEEB0018323E /* Media */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Media;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +83,7 @@
 				E0030D692D19F81B007ADDEE /* EntertainMe */,
 				E0030D7B2D19F81C007ADDEE /* EntertainMeTests */,
 				E0030D852D19F81C007ADDEE /* EntertainMeUITests */,
+				E0F3EF302D26CEEB0018323E /* Media */,
 				E0030D682D19F81B007ADDEE /* Products */,
 			);
 			sourceTree = "<group>";
@@ -109,6 +115,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				E0030D692D19F81B007ADDEE /* EntertainMe */,
+				E0F3EF302D26CEEB0018323E /* Media */,
 			);
 			name = EntertainMe;
 			packageProductDependencies = (
