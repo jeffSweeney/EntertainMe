@@ -15,11 +15,12 @@ Built for iOS 18+, EntertainMe leverages this core tech stack:
 
 ## Recordings
 
-### Happy Path - Light Mode
-TODO
+### Splash Screen
 
-### Happy Path - Dark Mode
-TODO
+### Dad Joke
 
-### Sad Path (Airplane Mode ON - Mocking Network Failures)
-TODO
+### Random Fact
+
+### Trivia
+
+### Simulated Network Failures
