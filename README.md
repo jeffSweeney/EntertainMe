@@ -17,7 +17,7 @@ Built for iOS 18+, EntertainMe leverages this core tech stack:
 
 ### Splash Screen
 
-![Splash Screen](Media/SplashScreen.gif)
+<img src="Media/SplashScreen.gif" alt="Splash Screen" width="300">
 
 ### App Demo
 
