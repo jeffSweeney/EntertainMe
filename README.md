@@ -21,7 +21,9 @@ Built for iOS 18+, EntertainMe leverages this core tech stack:
 
 ### Dad Joke
 
-COMING SOON
+<video src="https://github.com/jeffSweeney/EntertainMe/blob/master/Media/DadJokes.mp4?raw=true" width="640" controls>
+Your browser does not support the video tag.
+</video>
 
 ### Random Fact
 
