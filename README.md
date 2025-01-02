@@ -15,6 +15,8 @@ Built for iOS 18+, EntertainMe leverages this core tech stack:
 
 ## Recordings
 
+GIF uploadings of the full-length mp4s in the `/Media/` folder. 
+
 ### Splash Screen
 
 ![Splash Screen](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExNjh1cmFjZnlndnV5NnVzY3llMzE2ejM0aDJ0ejFzNWJmMmlnZWlkdCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/zkvltaKoxcK6obmjQJ/giphy.gif)
