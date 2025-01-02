@@ -32,3 +32,5 @@ Built for iOS 18+, EntertainMe leverages this core tech stack:
 ![Trivia](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExbDFoeDg0azFoajY0OHB2ejg3ZGtzZWh4dTAzYjJvMmM4ank5ZjFiMiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/9e0lTYhw2XFGV8kCii/giphy.gif)
 
 ### Simulated Network Failures
+
+![Simulated Network Failures](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExOGF0dzg1a2hkd2FlNW41c2djdmQ4MDdxaWlydzhxdTUxa3Jhejc1diZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/eqJzVAhlMQTDaH0hy1/giphy.gif)
