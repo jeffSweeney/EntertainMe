@@ -19,17 +19,9 @@ Built for iOS 18+, EntertainMe leverages this core tech stack:
 
 ![Splash Screen](Media/SplashScreen.gif)
 
-### Dad Joke
+### App Demo
 
-[Watch Demo](https://github.com/jeffSweeney/EntertainMe/blob/master/Media/DadJokes.mp4?raw=true)
-
-### Random Fact
-
-COMING SOON
-
-### Trivia
-
-COMING SOON
+[Watch Demo](https://github.com/jeffSweeney/EntertainMe/blob/master/Media/AppDemo.mp4?raw=true)
 
 ### Simulated Network Failures
 
