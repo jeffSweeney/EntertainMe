@@ -25,4 +25,4 @@ Built for iOS 18+, EntertainMe leverages this core tech stack:
 
 ### Sad Path App Demo (Simulated Network Failures)
 
-COMING SOON
+<img src="Media/SadPathDemo.gif" alt="Sad Path Demo" width="300">
