@@ -17,20 +17,20 @@ Built for iOS 18+, EntertainMe leverages this core tech stack:
 
 ### Splash Screen
 
-![Splash Screen](Media/SplashScreen.gif)
+COMING SOON
 
 ### Dad Joke
 
-![Splash Screen](Media/DadJokes.gif)
+COMING SOON
 
 ### Random Fact
 
-![Splash Screen](Media/RandomFacts.gif)
+COMING SOON
 
 ### Trivia
 
-![Splash Screen](Media/Trivia.gif)
+COMING SOON
 
 ### Simulated Network Failures
 
-![Splash Screen](Media/SimulatedNetworkFailures.gif)
+COMING SOON
