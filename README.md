@@ -19,10 +19,10 @@ Built for iOS 18+, EntertainMe leverages this core tech stack:
 
 <img src="Media/SplashScreen.gif" alt="Splash Screen" width="300">
 
-### Dad Jokes
+### Happy Path App Demo
 
-<img src="Media/DadJokes.gif" alt="Dad Jokes Demo" width="300">
+<img src="Media/HappyPathDemo.gif" alt="Happy Path Demo" width="300">
 
-### Simulated Network Failures
+### Sad Path App Demo (Simulated Network Failures)
 
 COMING SOON
