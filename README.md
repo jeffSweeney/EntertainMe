@@ -21,7 +21,7 @@ Built for iOS 18+, EntertainMe leverages this core tech stack:
 
 ### App Demo
 
-[Watch Demo](https://github.com/jeffSweeney/EntertainMe/blob/master/Media/AppDemo.mp4?raw=true)
+[Watch Demo](https://github.com/jeffSweeney/EntertainMe/blob/master/Media/AppDemo.mp4)
 
 ### Simulated Network Failures
 
